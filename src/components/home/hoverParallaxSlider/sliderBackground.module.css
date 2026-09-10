@@ -1,0 +1,103 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.background {
+  position: absolute;
+  inset: -50px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: clip-path;
+}
+
+.slide:first-child {
+  visibility: visible;
+  opacity: 1;
+}
+
+.image {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.05);
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@media (max-width: 1199px) {
+  .background {
+    inset: -40px;
+  }
+
+  .image {
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+  }
+}
+
+@media (max-width: 991px) {
+  .background {
+    inset: -30px;
+  }
+
+  .image {
+    inset: -3%;
+    width: 106%;
+    height: 106%;
+  }
+}
+
+@media (max-width: 767px) {
+  .background {
+    inset: -22px;
+  }
+
+  .image {
+    inset: -2.5%;
+    width: 105%;
+    height: 105%;
+  }
+}
+
+@media (max-width: 576px) {
+  .background {
+    inset: -16px;
+  }
+
+  .image {
+    inset: -2%;
+    width: 104%;
+    height: 104%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background,
+  .slide,
+  .image {
+    transition: none !important;
+    animation: none !important;
+  }
+}

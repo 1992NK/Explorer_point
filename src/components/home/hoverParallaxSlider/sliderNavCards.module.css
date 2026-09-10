@@ -1,0 +1,274 @@
+.wrapper {
+  position: absolute;
+  right: 50px;
+  bottom: 38px;
+  left: 50px;
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 30px;
+  background: rgba(7, 16, 19, 0.86);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(18px);
+}
+
+.item {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 78px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 17px;
+  min-height: 130px;
+  padding: 20px 24px;
+  border: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.35s ease;
+}
+
+.item:last-child {
+  border-right: 0;
+}
+
+.item:hover,
+.item.active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.imageWrap {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.icon {
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.label {
+  margin-bottom: 4px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.title {
+  overflow: hidden;
+  color: #fff;
+  font-family: var(--font-oswald), sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.12;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.item:hover .image,
+.item.active .image {
+  transform: scale(1.12);
+}
+
+.item:hover .title,
+.item.active .title {
+  color: #ffc900;
+}
+
+.item:hover .arrow,
+.item.active .arrow {
+  color: #ffc900;
+  transform: translateX(5px);
+}
+
+@media (max-width: 1199px) {
+  .wrapper {
+    right: 35px;
+    bottom: 32px;
+    left: 35px;
+  }
+
+  .item {
+    grid-template-columns: 65px minmax(0, 1fr) 22px;
+    gap: 13px;
+    min-height: 120px;
+    padding: 18px;
+  }
+
+  .imageWrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  .label {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 991px) {
+  .wrapper {
+    right: 24px;
+    bottom: 28px;
+    left: 24px;
+  }
+
+  .navigation {
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 24px;
+  }
+
+  .item {
+    min-height: 105px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .item:nth-child(2) {
+    border-right: 0;
+  }
+
+  .item:nth-child(3),
+  .item:nth-child(4) {
+    border-bottom: 0;
+  }
+
+  .imageWrap {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: 55px;
+  }
+
+  .navigation {
+    display: flex;
+    overflow-x: auto;
+    border-radius: 22px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    width: 78%;
+    min-width: 78%;
+    grid-template-columns: 64px minmax(0, 1fr) 25px;
+    min-height: 105px;
+    padding: 16px;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 0;
+    scroll-snap-align: start;
+  }
+
+  .item:nth-child(2) {
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .item:last-child {
+    border-right: 0;
+  }
+
+  .imageWrap {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .wrapper {
+    margin-top: 42px;
+  }
+
+  .navigation {
+    border-radius: 20px;
+  }
+
+  .item {
+    width: 90%;
+    min-width: 90%;
+    grid-template-columns: 56px minmax(0, 1fr) 22px;
+    gap: 12px;
+    min-height: 95px;
+    padding: 14px;
+  }
+
+  .imageWrap {
+    width: 54px;
+    height: 54px;
+  }
+
+  .icon {
+    margin-bottom: 3px;
+    font-size: 20px;
+  }
+
+  .label {
+    margin-bottom: 3px;
+    font-size: 7px;
+    letter-spacing: 1.6px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .arrow {
+    font-size: 22px;
+  }
+}
