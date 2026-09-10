@@ -1,27 +1,26 @@
 export const sliderData = [
   {
     id: 1,
-    title: "Discover the unexplored",
-    image: "/images/home/hoverSlider/adventure.jpg",
+    title: "Nature",
+    image: "/images/home/hoverSlider/nature.jpg",
     position: "center"
   },
   {
     id: 2,
-    title: "Escape to the mountains",
-    image: "/images/home/hoverSlider/mountains.jpg",
+    title: "Culture",
+    image: "/images/home/hoverSlider/culture.jpg",
     position: "center"
   },
   {
     id: 3,
-    title: "Walk through timeless heritage",
-    image: "/images/home/hoverSlider/heritage.jpg",
+    title: "Adventure",
+    image: "/images/home/hoverSlider/adventure.jpg",
     position: "center"
   },
   {
     id: 4,
-    title: "Meet the wild side of India",
-    image: "/images/home/hoverSlider/wildlife.jpg",
+    title: "You",
+    image: "/images/home/hoverSlider/you.jpg",
     position: "center"
-  },
- 
+  }
 ];

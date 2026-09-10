@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { sliderData } from "@/data/sliderData";
 import SliderBackground from "./SliderBackground";
 import SliderContent from "./SliderContent";
-import SliderNavCards from "./SliderNavCards";
 import styles from "./hoverParallaxSlider.module.css";
 
 const HoverParallaxSlider = () => {
@@ -14,17 +13,10 @@ const HoverParallaxSlider = () => {
   return (
     <section ref={sectionRef} className={styles.slider}>
       <SliderBackground slides={sliderData} activeIndex={activeIndex} sectionRef={sectionRef} />
-
       <div className={styles.overlay}></div>
 
       <div className={`container ${styles.sliderContainer}`}>
-        <SliderContent />
-
-        <SliderNavCards
-          slides={sliderData}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
-        />
+        <SliderContent slides={sliderData} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
       </div>
     </section>
   );
