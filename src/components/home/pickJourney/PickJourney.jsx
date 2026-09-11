@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import { InertiaPlugin } from "gsap/InertiaPlugin";
 import JourneyCard from "./JourneyCard";
 import { journeyData } from "@/data/journeyData";
 import styles from "./pickJourney.module.css";
+
+gsap.registerPlugin(Draggable);
 
 const PickJourney = () => {
   const sectionRef = useRef(null);
@@ -16,8 +16,6 @@ const PickJourney = () => {
   const trackRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
-
     const section = sectionRef.current;
     const content = contentRef.current;
     const trackArea = trackAreaRef.current;
@@ -25,32 +23,44 @@ const PickJourney = () => {
 
     if (!section || !content || !trackArea || !track) return;
 
-    let draggable;
-    let resizeTimer;
+    let draggableInstance = null;
+    let resizeTimer = null;
+    let observer = null;
+    let contentAnimated = false;
 
-    const ctx = gsap.context(() => {
-      const contentItems = content.querySelectorAll("[data-animate]");
+    const contentItems = content.querySelectorAll("[data-animate]");
 
-      gsap.fromTo(
-        contentItems,
-        {
-          y: 55,
-          opacity: 0,
-        },
-        {
+    gsap.set(contentItems, {
+      y: 50,
+      opacity: 0,
+    });
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (!entry.isIntersecting || contentAnimated) return;
+
+        contentAnimated = true;
+
+        gsap.to(contentItems, {
           y: 0,
           opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
+          duration: 0.8,
+          stagger: 0.12,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: content,
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-    }, section);
+          clearProps: "transform",
+        });
+
+        observer.disconnect();
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    observer.observe(content);
 
     const getBounds = () => {
       const sectionRect = section.getBoundingClientRect();
@@ -58,23 +68,26 @@ const PickJourney = () => {
 
       const visibleWidth = sectionRect.right - trackAreaRect.left;
       const trackWidth = track.scrollWidth;
-      const minX = Math.min(0, -(trackWidth - visibleWidth));
 
       return {
-        minX,
+        minX: Math.min(0, visibleWidth - trackWidth),
         maxX: 0,
       };
     };
 
     const createDraggable = () => {
-      if (draggable) {
-        draggable.kill();
+      if (draggableInstance) {
+        draggableInstance.kill();
+        draggableInstance = null;
       }
 
       gsap.killTweensOf(track);
 
       const bounds = getBounds();
-      const currentX = Number(gsap.getProperty(track, "x")) || 0;
+
+      const currentX =
+        Number(gsap.getProperty(track, "x")) || 0;
+
       const safeX = gsap.utils.clamp(
         bounds.minX,
         bounds.maxX,
@@ -86,14 +99,19 @@ const PickJourney = () => {
         force3D: true,
       });
 
-      draggable = Draggable.create(track, {
+      draggableInstance = Draggable.create(track, {
         type: "x",
-        bounds,
-        inertia: true,
+
+        bounds: {
+          minX: bounds.minX,
+          maxX: bounds.maxX,
+        },
+
         edgeResistance: 0.85,
         dragResistance: 0.02,
-        minimumMovement: 2,
-        allowNativeTouchScrolling: "y",
+        minimumMovement: 3,
+        allowNativeTouchScrolling: true,
+
         cursor: "grab",
         activeCursor: "grabbing",
 
@@ -107,10 +125,23 @@ const PickJourney = () => {
           });
         },
 
-        onThrowUpdate() {
-          gsap.set(track, {
-            force3D: true,
-          });
+        onRelease() {
+          const currentPosition =
+            Number(gsap.getProperty(track, "x")) || 0;
+
+          const finalPosition = gsap.utils.clamp(
+            bounds.minX,
+            bounds.maxX,
+            currentPosition
+          );
+
+          if (currentPosition !== finalPosition) {
+            gsap.to(track, {
+              x: finalPosition,
+              duration: 0.35,
+              ease: "power3.out",
+            });
+          }
         },
       })[0];
     };
@@ -120,51 +151,74 @@ const PickJourney = () => {
 
       resizeTimer = setTimeout(() => {
         createDraggable();
-        ScrollTrigger.refresh();
       }, 200);
     };
 
-    const frame = requestAnimationFrame(() => {
+    const initFrame = requestAnimationFrame(() => {
       createDraggable();
-      ScrollTrigger.refresh();
     });
 
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(frame);
-      clearTimeout(resizeTimer);
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(initFrame);
 
-      if (draggable) {
-        draggable.kill();
+      clearTimeout(resizeTimer);
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+
+      if (observer) {
+        observer.disconnect();
       }
 
+      if (draggableInstance) {
+        draggableInstance.kill();
+        draggableInstance = null;
+      }
+
+      gsap.killTweensOf(contentItems);
       gsap.killTweensOf(track);
-      ctx.revert();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section
+      ref={sectionRef}
+      className={styles.section}
+    >
       <div className={`container ${styles.container}`}>
-        <div ref={contentRef} className={styles.content}>
-          <span data-animate className={styles.eyebrow}>
+        <div
+          ref={contentRef}
+          className={styles.content}
+        >
+          <span
+            data-animate
+            className={styles.eyebrow}
+          >
             WHERE TO GO
           </span>
 
-          <h2 data-animate className={styles.heading}>
+          <h2
+            data-animate
+            className={styles.heading}
+          >
             Pick your
             <br />
             own journey.
           </h2>
 
-          <p data-animate className={styles.description}>
-            Discover unforgettable destinations across India.
-            From peaceful mountains and untouched nature to
-            vibrant cultures, beaches and incredible local
-            flavours, choose a journey that feels completely
-            your own.
+          <p
+            data-animate
+            className={styles.description}
+          >
+            Discover unforgettable destinations across
+            India. From peaceful mountains and untouched
+            nature to vibrant cultures, beaches and
+            incredible local flavours, choose a journey
+            that feels completely your own.
           </p>
 
           <button

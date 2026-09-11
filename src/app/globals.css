@@ -41,34 +41,34 @@ button {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding-right: 40px;
-  padding-left: 40px;
+  padding-right: 15px;
+  padding-left:15px;
 }
 
 @media (max-width: 1200px) {
   .container {
-    padding-right: 32px;
-    padding-left: 32px;
+    padding-right: 15px;
+  padding-left:15px;
   }
 }
 
 @media (max-width: 992px) {
   .container {
-    padding-right: 28px;
-    padding-left: 28px;
+   padding-right: 15px;
+  padding-left:15px;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding-right: 22px;
-    padding-left: 22px;
+    padding-right: 15px;
+  padding-left:15px;
   }
 }
 
 @media (max-width: 576px) {
   .container {
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 15px;
+  padding-left:15px;
   }
 }
