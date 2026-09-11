@@ -24,19 +24,5 @@ export const journeyData = [
     title: "Adventure",
     image: "/images/journey/adventure.webp",
   },
-  {
-    id: 6,
-    title: "Culture",
-    image: "/images/journey/culture.webp",
-  },
-  {
-    id: 7,
-    title: "Gastronomy",
-    image: "/images/journey/food.webp",
-  },
-  {
-    id: 8,
-    title: "Adventure",
-    image: "/images/journey/adventure.webp",
-  },
+
 ];

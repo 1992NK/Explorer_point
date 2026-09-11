@@ -3,92 +3,109 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./journeyCard.module.css";
 
-const JourneyCard = ({ item }) => {
+const JourneyCard = ({ item, index }) => {
   const cardRef = useRef(null);
-  const imageRef = useRef(null);
+  const imageRevealRef = useRef(null);
   const maskRef = useRef(null);
   const contentRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const card = cardRef.current;
+    const imageReveal = imageRevealRef.current;
+    const mask = maskRef.current;
+    const content = contentRef.current;
 
-    const ctx = gsap.context(() => {
-      gsap.set(imageRef.current, {
-        clipPath: "inset(0 100% 0 0)",
-        scale: 1.06,
-      });
+    if (!card || !imageReveal || !mask || !content) return;
 
-      gsap.set(maskRef.current, {
-        scaleX: 0,
-        transformOrigin: "left center",
-      });
+    gsap.set(imageReveal, {
+      clipPath: "inset(0 100% 0 0)",
+    });
 
-      gsap.set(contentRef.current, {
-        y: 20,
-        opacity: 0,
-      });
+    gsap.set(mask, {
+      scaleX: 0,
+      transformOrigin: "left center",
+    });
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 88%",
-          once: true,
-        },
-      });
+    gsap.set(content, {
+      y: 20,
+      opacity: 0,
+    });
 
-      timeline
-        .to(maskRef.current, {
-          scaleX: 1,
-          duration: 0.45,
-          ease: "power3.inOut",
-        })
-        .set(imageRef.current, {
-          clipPath: "inset(0 0% 0 0)",
-        })
-        .to(
-          imageRef.current,
-          {
-            scale: 1,
-            duration: 0.55,
-            ease: "power3.out",
-          },
-          "<"
-        )
-        .set(maskRef.current, {
-          transformOrigin: "right center",
-        })
-        .to(maskRef.current, {
-          scaleX: 0,
-          duration: 0.45,
-          ease: "power3.inOut",
-        })
-        .to(
-          contentRef.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            ease: "power2.out",
-          },
-          "-=0.18"
-        );
-    }, cardRef);
+    let hasAnimated = false;
+    let timeline = null;
 
-    return () => ctx.revert();
-  }, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (!entry.isIntersecting || hasAnimated) return;
+
+        hasAnimated = true;
+
+        timeline = gsap.timeline({
+          delay: index * 0.08,
+        });
+
+        timeline
+          .to(mask, {
+            scaleX: 1,
+            duration: 0.48,
+            ease: "power3.inOut",
+          })
+          .set(imageReveal, {
+            clipPath: "inset(0 0% 0 0)",
+          })
+          .set(mask, {
+            transformOrigin: "right center",
+          })
+          .to(mask, {
+            scaleX: 0,
+            duration: 0.48,
+            ease: "power3.inOut",
+          })
+          .to(
+            content,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.45,
+              ease: "power3.out",
+            },
+            "-=0.22"
+          );
+
+        observer.disconnect();
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -5% 0px",
+      }
+    );
+
+    observer.observe(card);
+
+    return () => {
+      observer.disconnect();
+
+      if (timeline) {
+        timeline.kill();
+      }
+
+      gsap.killTweensOf([imageReveal, mask, content]);
+    };
+  }, [index]);
 
   return (
     <article ref={cardRef} className={styles.card}>
       <div className={styles.imageWrapper}>
-        <div ref={imageRef} className={styles.imageReveal}>
+        <div ref={imageRevealRef} className={styles.imageReveal}>
           <Image
             src={item.image}
             alt={item.title}
             fill
-            sizes="(max-width: 767px) 76vw, 310px"
+            sizes="(max-width: 767px) 78vw, (max-width: 1199px) 33vw, 20vw"
             className={styles.image}
             draggable={false}
           />
@@ -98,14 +115,22 @@ const JourneyCard = ({ item }) => {
 
         <div className={styles.overlay} />
 
-        <div ref={contentRef} className={styles.cardContent}>
-          <h3 className={styles.title}>
-            {item.title}
-          </h3>
+        <div className={styles.shine} />
 
-          <button type="button" className={styles.learnMore}>
-            Learn More
-          </button>
+        <div ref={contentRef} className={styles.content}>
+          <span className={styles.number}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          <div className={styles.bottom}>
+            <h3 className={styles.title}>
+              {item.title}
+            </h3>
+
+            <span className={styles.arrow}>
+              ↗
+            </span>
+          </div>
         </div>
       </div>
     </article>
