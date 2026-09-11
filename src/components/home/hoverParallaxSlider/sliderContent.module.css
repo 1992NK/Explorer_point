@@ -31,80 +31,12 @@
   font-weight: 700;
 }
 
-.exploreNav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 28px;
-}
-
-.line {
-  display: block;
-  width: 55px;
-  height: 1px;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.65);
-}
-
-.exploreItems {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-}
-
-.exploreItem {
-  position: relative;
-  padding: 8px 21px;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.82);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 0.35s ease, transform 0.35s ease;
-}
-
-.exploreItem:not(:last-child)::after {
-  position: absolute;
-  top: 50%;
-  right: -3px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  content: "";
-  background: rgba(255, 255, 255, 0.55);
-  transform: translateY(-50%);
-}
-
-.exploreItem::before {
-  position: absolute;
-  right: 20px;
-  bottom: 0;
-  left: 20px;
-  height: 1px;
-  content: "";
-  background: #ffc900;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.35s ease;
-}
-
-.exploreItem:hover,
-.exploreItem.active {
-  color: #ffc900;
-  transform: translateY(-2px);
-}
-
-.exploreItem:hover::before,
-.exploreItem.active::before {
-  transform: scaleX(1);
+.description {
+  width: min(620px, 100%);
+  margin: 25px auto 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .actions {
@@ -112,7 +44,7 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  margin-top: 42px;
+  margin-top: 35px;
 }
 
 .primaryButton,
@@ -126,7 +58,7 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .primaryButton {
@@ -144,14 +76,13 @@
 
 .buttonArrow {
   font-size: 22px;
-  font-weight: 400;
 }
 
 .videoButton {
   min-width: 225px;
   gap: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(0, 0, 0, 0.14);
   color: #fff;
   backdrop-filter: blur(8px);
 }
@@ -167,7 +98,7 @@
   height: 32px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 50%;
   font-size: 10px;
 }
@@ -175,16 +106,6 @@
 @media (max-width: 1199px) {
   .heading {
     font-size: clamp(48px, 5vw, 72px);
-  }
-
-  .exploreNav {
-    gap: 22px;
-  }
-
-  .exploreItem {
-    padding: 8px 17px;
-    font-size: 13px;
-    letter-spacing: 4px;
   }
 }
 
@@ -200,26 +121,6 @@
   .heading {
     font-size: clamp(44px, 7vw, 64px);
   }
-
-  .exploreNav {
-    gap: 15px;
-    margin-top: 25px;
-  }
-
-  .line {
-    width: 35px;
-  }
-
-  .exploreItem {
-    padding: 8px 13px;
-    font-size: 11px;
-    letter-spacing: 3px;
-  }
-
-  .exploreItem::before {
-    right: 12px;
-    left: 12px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -228,42 +129,26 @@
   }
 
   .welcome {
-    margin-bottom: 10px;
     font-size: 27px;
   }
 
   .heading {
     font-size: clamp(40px, 10vw, 56px);
-    line-height: 1.04;
   }
 
-  .exploreNav {
-    margin-top: 22px;
-  }
-
-  .line {
-    display: none;
-  }
-
-  .exploreItems {
-    flex-wrap: wrap;
-    gap: 4px 0;
-  }
-
-  .exploreItem {
-    padding: 9px 14px;
-    font-size: 10px;
-    letter-spacing: 2px;
+  .description {
+    max-width: 500px;
+    font-size: 13px;
   }
 
   .actions {
-    margin-top: 32px;
+    margin-top: 28px;
   }
 
   .primaryButton,
   .videoButton {
-    min-width: 190px;
-    height: 52px;
+    min-width: 185px;
+    height: 50px;
     font-size: 13px;
   }
 }
@@ -274,62 +159,22 @@
   }
 
   .heading {
-    font-size: clamp(36px, 11vw, 47px);
+    font-size: clamp(35px, 11vw, 47px);
   }
 
-  .exploreNav {
-    margin-top: 20px;
-  }
-
-  .exploreItems {
-    width: 100%;
-  }
-
-  .exploreItem {
-    padding: 9px 10px;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-  }
-
-  .exploreItem:not(:last-child)::after {
-    right: -2px;
-    width: 3px;
-    height: 3px;
-  }
-
-  .exploreItem::before {
-    right: 9px;
-    left: 9px;
+  .description {
+    margin-top: 18px;
+    font-size: 12px;
   }
 
   .actions {
     flex-direction: column;
-    gap: 11px;
-    margin-top: 27px;
+    gap: 10px;
   }
 
   .primaryButton,
   .videoButton {
     width: 100%;
-    max-width: 290px;
-  }
-}
-
-@media (hover: none) {
-  .exploreItem:hover {
-    color: rgba(255, 255, 255, 0.82);
-    transform: none;
-  }
-
-  .exploreItem:hover::before {
-    transform: scaleX(0);
-  }
-
-  .exploreItem.active {
-    color: #ffc900;
-  }
-
-  .exploreItem.active::before {
-    transform: scaleX(1);
+    max-width: 285px;
   }
 }

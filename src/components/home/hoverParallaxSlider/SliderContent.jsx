@@ -1,6 +1,6 @@
 import styles from "./sliderContent.module.css";
 
-const SliderContent = ({ slides, activeIndex, setActiveIndex }) => {
+const SliderContent = () => {
   return (
     <div className={styles.content}>
       <p className={styles.welcome}>Welcome to incredible India</p>
@@ -9,27 +9,9 @@ const SliderContent = ({ slides, activeIndex, setActiveIndex }) => {
         Explore Beyond <span>The Ordinary</span>
       </h1>
 
-      <div className={styles.exploreNav}>
-        <span className={styles.line}></span>
-
-        <div className={styles.exploreItems}>
-          {slides.map((slide, index) => (
-            <button
-              key={slide.id}
-              type="button"
-              className={`${styles.exploreItem} ${activeIndex === index ? styles.active : ""}`}
-              onMouseEnter={() => setActiveIndex(index)}
-              onFocus={() => setActiveIndex(index)}
-              onClick={() => setActiveIndex(index)}
-              aria-pressed={activeIndex === index}
-            >
-              {slide.title}
-            </button>
-          ))}
-        </div>
-
-        <span className={styles.line}></span>
-      </div>
+      <p className={styles.description}>
+        Discover extraordinary destinations, unforgettable journeys and experiences that stay with you forever.
+      </p>
 
       <div className={styles.actions}>
         <button type="button" className={styles.primaryButton}>

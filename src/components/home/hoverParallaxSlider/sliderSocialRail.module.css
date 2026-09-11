@@ -1,0 +1,130 @@
+.socialRail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  width: 74px;
+  flex-direction: column;
+  align-items: center;
+  padding: 38px 0;
+  background: rgba(4, 20, 24, 0.76);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.gridIcon {
+  display: grid;
+  grid-template-columns: repeat(3, 3px);
+  gap: 4px;
+}
+
+.gridIcon span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffc900;
+}
+
+.verticalLine {
+  width: 1px;
+  height: 115px;
+  margin-top: 32px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.socialLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 27px;
+  margin-top: auto;
+  margin-bottom: 72px;
+}
+
+.socialLink {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.socialLink img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.socialLink:hover {
+  opacity: 0.75;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 1199px) {
+  .socialRail {
+    width: 64px;
+  }
+}
+
+@media (max-width: 991px) {
+  .socialRail {
+    width: 56px;
+  }
+
+  .verticalLine {
+    height: 90px;
+  }
+
+  .socialLinks {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 767px) {
+  .socialRail {
+    top: auto;
+    right: 18px;
+    bottom: 120px;
+    left: auto;
+    width: auto;
+    height: auto;
+    flex-direction: row;
+    gap: 16px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+    background: rgba(5, 18, 22, 0.68);
+  }
+
+  .gridIcon,
+  .verticalLine {
+    display: none;
+  }
+
+  .socialLinks {
+    flex-direction: row;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .socialLink {
+    width: 26px;
+    height: 26px;
+  }
+
+  .socialLink img {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .socialRail {
+    right: 15px;
+    bottom: 112px;
+  }
+}
