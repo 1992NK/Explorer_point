@@ -1,0 +1,341 @@
+.card {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  overflow: visible;
+  border: 1px solid transparent;
+  border-radius: var(--festivalRadius);
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  isolation: auto;
+  z-index: 1;
+}
+
+.card.active {
+  z-index: 100;
+}
+
+.imageArea {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--festivalRadius);
+  background: transparent;
+  transform: translateY(0);
+  will-change: height, transform;
+  transition:
+    height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.imageMask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path;
+}
+
+.card.active:not(.openUp) .imageArea {
+  height: calc(100% + var(--festivalGap));
+  border-radius: var(--festivalRadius) var(--festivalRadius) 0 0;
+  box-shadow: 0 12px 30px rgba(16, 47, 67, 0.12);
+}
+
+.card.active.openUp .imageArea {
+  height: calc(100% + var(--festivalGap));
+  border-radius: var(--festivalRadius) var(--festivalRadius) 0 0;
+  box-shadow: 0 12px 30px rgba(16, 47, 67, 0.12);
+  transform: translateY(-100%);
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.015);
+}
+
+.card.active .image {
+  transform: scale(1);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 20, 31, 0) 0%,
+    rgba(5, 20, 31, 0.01) 45%,
+    rgba(5, 20, 31, 0.1) 65%,
+    rgba(5, 20, 31, 0.34) 82%,
+    rgba(5, 20, 31, 0.68) 100%
+  );
+  pointer-events: none;
+}
+
+.dateBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  max-width: 145px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 6px 20px rgba(7, 32, 48, 0.13);
+}
+
+.dateBadge svg {
+  flex: 0 0 auto;
+  font-size: 16px;
+}
+
+.orange {
+  background: #ff5a24;
+}
+
+.pink {
+  background: #ff1752;
+}
+
+.blue {
+  background: #087fc4;
+}
+
+.green {
+  background: #008c6b;
+}
+
+.purple {
+  background: #8d35dd;
+}
+
+.cyan {
+  background: #0496a6;
+}
+
+.thumbnailContent {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 40px 18px 18px;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.thumbnailContent::before {
+  position: absolute;
+  inset: -45px 0 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 31, 43, 0) 0%,
+    rgba(12, 31, 43, 0.08) 20%,
+    rgba(12, 31, 43, 0.32) 48%,
+    rgba(12, 31, 43, 0.66) 78%,
+    rgba(12, 31, 43, 0.86) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.thumbnailTitle {
+  position: relative;
+  z-index: 2;
+  max-width: calc(100% - 62px);
+  margin: 0;
+  padding: 7px 8px 7px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+.thumbnailArrow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: rgba(10, 30, 42, 0.35);
+  color: #ffffff;
+  font-size: 15px;
+  backdrop-filter: blur(5px);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card:hover .thumbnailArrow,
+.card.active .thumbnailArrow {
+  background: #ffffff;
+  color: var(--festivalDark);
+  transform: translateX(3px);
+}
+
+.card:focus-visible {
+  border-color: var(--festivalGreen);
+}
+
+@media (max-width: 1199px) {
+  .dateBadge {
+    top: 14px;
+    left: 14px;
+  }
+
+  .thumbnailContent {
+    padding: 38px 16px 16px;
+  }
+
+  .thumbnailArrow {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dateBadge {
+    top: 15px;
+    left: 15px;
+  }
+
+  .thumbnailContent {
+    padding: 40px 18px 18px;
+  }
+
+  .thumbnailTitle {
+    max-width: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 767px) {
+  .dateBadge {
+    top: 13px;
+    left: 13px;
+    min-height: 38px;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .dateBadge svg {
+    font-size: 14px;
+  }
+
+  .thumbnailContent {
+    padding: 34px 14px 14px;
+  }
+
+  .thumbnailContent::before {
+    inset: -38px 0 0;
+  }
+
+  .thumbnailTitle {
+    max-width: calc(100% - 54px);
+    padding: 5px 6px 5px 0;
+    font-size: 18px;
+  }
+
+  .thumbnailArrow {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dateBadge {
+    top: 14px;
+    left: 14px;
+    min-height: 40px;
+    padding: 6px 11px;
+    font-size: 11px;
+  }
+
+  .thumbnailContent {
+    padding: 40px 17px 17px;
+  }
+
+  .thumbnailContent::before {
+    inset: -42px 0 0;
+  }
+
+  .thumbnailTitle {
+    max-width: calc(100% - 58px);
+    font-size: 18px;
+  }
+
+  .thumbnailArrow {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (hover: none) {
+  .card:hover .image {
+    transform: scale(1);
+  }
+
+  .card:hover .thumbnailArrow {
+    background: rgba(10, 30, 42, 0.35);
+    color: #ffffff;
+    transform: none;
+  }
+
+  .card.active .thumbnailArrow {
+    background: #ffffff;
+    color: var(--festivalDark);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageMask {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .imageArea,
+  .image,
+  .thumbnailArrow {
+    transition: none;
+  }
+}

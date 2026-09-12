@@ -45,7 +45,7 @@ button {
   padding-left:15px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .container {
     padding-right: 15px;
   padding-left:15px;
@@ -59,7 +59,7 @@ button {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .container {
     padding-right: 15px;
   padding-left:15px;

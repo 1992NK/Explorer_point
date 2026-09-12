@@ -1,0 +1,158 @@
+.festivalSection {
+  --festivalRadius: 14px;
+  --festivalBorder: #dfe5e7;
+  --festivalGreen: #087b68;
+  --festivalDark: #143451;
+  --festivalText: #5d7487;
+  --festivalGap: 16px;
+  --festivalCardHeight: 300px;
+
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  background: #f7fbfe;
+  overflow: visible;
+}
+
+.headingWrapper {
+  max-width: 680px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.subHeading {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--festivalGreen);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  color: var(--festivalDark);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+}
+
+.description {
+  max-width: 580px;
+  margin: 15px auto 0;
+  color: #738394;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.festivalGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: var(--festivalCardHeight);
+  gap: var(--festivalGap);
+  align-items: stretch;
+  overflow: visible;
+}
+
+@media (max-width: 1199px) {
+  .festivalSection {
+    --festivalCardHeight: 290px;
+
+    padding: 85px 0;
+  }
+
+  .festivalGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .festivalSection {
+    --festivalCardHeight: 300px;
+
+    padding: 75px 0;
+  }
+
+  .headingWrapper {
+    max-width: 620px;
+    margin-bottom: 38px;
+  }
+
+  .heading {
+    font-size: 44px;
+  }
+
+  .festivalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .festivalSection {
+    --festivalCardHeight: 290px;
+    --festivalGap: 14px;
+
+    padding: 60px 0;
+  }
+
+  .headingWrapper {
+    max-width: 100%;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .subHeading {
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+
+  .heading {
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+
+  .description {
+    max-width: 540px;
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 576px) {
+  .festivalSection {
+    --festivalCardHeight: 320px;
+    --festivalGap: 14px;
+
+    padding: 50px 0;
+  }
+
+  .headingWrapper {
+    margin-bottom: 28px;
+  }
+
+  .subHeading {
+    font-size: 11px;
+  }
+
+  .heading {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .festivalGrid {
+    grid-template-columns: 1fr;
+  }
+}
