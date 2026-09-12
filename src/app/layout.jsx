@@ -1,6 +1,7 @@
 import { Manrope, Oswald } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header/Header";
+import Footer from "@/components/common/footer/Footer";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -18,6 +19,7 @@ const RootLayout = ({ children }) => {
       <body className={`${manrope.variable} ${oswald.variable}`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

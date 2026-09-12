@@ -1,0 +1,232 @@
+.ctaSection {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.ctaContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.content {
+  width: min(720px, 100%);
+  text-align: center;
+}
+
+.smallTitle {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #11b8ce;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  color: #34383c;
+  font-size: clamp(38px, 3.1vw, 56px);
+  line-height: 1.04;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.heading span {
+  display: block;
+  color: #11b8ce;
+}
+
+.description {
+  margin: 16px 0 0;
+  color: #8a8d91;
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-width: 225px;
+  height: 54px;
+  margin-top: 27px;
+  padding: 0 18px 0 28px;
+  border: 1px solid #11b8ce;
+  border-radius: var(--radius-md, 8px);
+  background: #11b8ce;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  background: #ffffff;
+  color: #11b8ce;
+  transform: translateY(-3px);
+}
+
+.buttonArrow {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 15px;
+}
+
+.button:hover .buttonArrow {
+  background: rgba(17, 184, 206, 0.1);
+}
+
+/* -------------------------
+   TRAVEL ILLUSTRATION
+------------------------- */
+
+.illustration {
+  position: relative;
+  width: 100%;
+  height: 275px;
+  overflow: hidden;
+}
+
+.illustrationImage {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+/* -------------------------
+   RESPONSIVE
+------------------------- */
+
+@media (max-width: 1199px) {
+  .ctaContainer {
+    padding-top: 60px;
+    padding-bottom: 28px;
+  }
+
+  .illustration {
+    height: 215px;
+  }
+}
+
+@media (max-width: 992px) {
+  .ctaContainer {
+    padding-top: 55px;
+    padding-bottom: 25px;
+  }
+
+  .content {
+    width: min(650px, 90%);
+  }
+
+  .heading {
+    font-size: 42px;
+  }
+
+  .illustration {
+    height: 190px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ctaContainer {
+    padding-top: 45px;
+    padding-bottom: 22px;
+  }
+
+  .content {
+    width: 90%;
+  }
+
+  .smallTitle {
+    margin-bottom: 11px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .heading {
+    font-size: 35px;
+  }
+
+  .description {
+    max-width: 480px;
+    margin: 13px auto 0;
+    font-size: 14px;
+  }
+
+  .button {
+    min-width: 200px;
+    height: 50px;
+    margin-top: 22px;
+  }
+
+  .illustration {
+    height: 150px;
+  }
+
+  .illustrationImage {
+    width: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 576px) {
+  .ctaContainer {
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .heading {
+    font-size: 29px;
+    line-height: 1.08;
+  }
+
+  .description {
+    max-width: 330px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .button {
+    min-width: 185px;
+    height: 48px;
+    gap: 13px;
+    margin-top: 20px;
+    padding: 0 15px 0 22px;
+    font-size: 11px;
+  }
+
+  .illustration {
+    height: 120px;
+  }
+
+  .illustrationImage {
+    width: 145%;
+  }
+}
